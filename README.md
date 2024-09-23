@@ -72,7 +72,8 @@
 # 5: История команд
 ## ```history > история_команд.txt```
 # 6: Диаграмма классов
-![image](https://github.com/user-attachments/assets/dacdea2f-f8a8-4b23-ad24-8a8019e2f599)
+![image](https://github.com/user-attachments/assets/4234a4c1-f98b-4293-8dad-d1ad3cbd6bfb)
+
 
 # 7: Создание базы данных
 ## ```sudo mysql```

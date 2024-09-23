@@ -36,15 +36,15 @@
 до месяца подсчитать возраст животных в новой таблице
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
 прошлую принадлежность к старым таблицам.
-13.Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
+13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 14. Написать программу, имитирующую работу реестра домашних животных.
 В программе должен быть реализован следующий функционал:
-14.1 Завести новое животное
-14.2 определять животное в правильный класс
-14.3 увидеть список команд, которое выполняет животное
-14.4 обучить животное новым командам
-14.5 Реализовать навигацию по меню
-15.Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
+14. 1. Завести новое животное
+    2. определять животное в правильный класс
+    3. увидеть список команд, которое выполняет животное
+    4. обучить животное новым командам
+    5. Реализовать навигацию по меню
+15. Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
 значение внутренней̆int переменной̆на 1 при нажатие “Завести новое
 животное” Сделайте так, чтобы с объектом такого типа можно было работать в
 блоке try-with-resources. Нужно бросить исключение, если работа с объектом
@@ -53,63 +53,184 @@
 
 
 # 1: Создание файлов и их объединение
-## ```bash
-echo -e "Собака\nКошка\nХомяк" > Домашние_животные.txt```
-## ```bash
-echo -e "Лошадь\nВерблюд\nОсел" > Вьючные_животные.txt```
-## ```cat Домашние_животные.txt Вьючные_животные.txt > Объединенные_животные.txt```
-## ```cat Объединенные_животные.txt```
-## ```mv Объединенные_животные.txt Друзья_человека.txt```
+```bash
+echo -e "Dog\nCat\nHamster" > domestic_animals.txt
+```
+```bash
+echo -e "Horse\nCamel\nDonkey" > pack_animals.txt
+```
+```bash
+cat domestic_animals.txt pack_animals.txt > combined_animals.txt
+```
+```bash
+cat combined_animals.txt
+```
+```bash
+mv combined_animals.txt human_friends.txt
+```
 # 2: Создание директории и перемещение файла
-## ```mkdir Мои_животные```
-## ```mv Друзья_человека.txt Мои_животные/```
+```bash
+mkdir my_animals
+```
+```bash
+mv human_friends.txt my_animals/
+```
 # 3: Подключение дополнительного репозитория MySQL и установка пакета
-## ```sudo add-apt-repository 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-5.7'```
-## ```sudo apt update```
-## ```sudo apt install mysql-server```
+```bash
+sudo add-apt-repository 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-5.7'
+```
+```bash
+sudo apt update
+```
+```bash
+sudo apt install mysql-server
+```
 # 4: Установка и удаление deb-пакета с помощью dpkg
-## ```wget http://mirrors.kernel.org/ubuntu/pool/universe/h/htop/htop_3.0.5-3_amd64.deb```
-## ```sudo dpkg -i htop_3.0.5-3_amd64.deb```
-## ```sudo dpkg -r htop```
+```bash
+wget http://mirrors.kernel.org/ubuntu/pool/universe/h/htop/htop_3.0.5-3_amd64.deb
+```
+```bash
+sudo dpkg -i htop_3.0.5-3_amd64.deb
+```
+```bash
+sudo dpkg -r htop
+```
 # 5: История команд
-## ```history > история_команд.txt```
+```bash
+history > command_history.txt
+```
 # 6: Диаграмма классов
 ![image](https://github.com/user-attachments/assets/4234a4c1-f98b-4293-8dad-d1ad3cbd6bfb)
 
 
 # 7: Создание базы данных
-## ```sudo mysql```
-## ```CREATE DATABASE Друзья_человека;```
+```bash
+sudo mysql
+```
+```sql
+CREATE DATABASE human_friends;
+```
 # 8: Создание таблиц
-## ```CREATE TABLE Собаки (
+```sql
+CREATE TABLE Dog (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    имя VARCHAR(50),
-    команды VARCHAR(255),
-    дата_рождения DATE
-);```
+    name VARCHAR(50),
+    commands VARCHAR(255),
+    birth_date DATE
+);
+```
 Повторить для всех классов (кошки, хомяки, лошади, верблюды, ослы).
 
 # 9: Заполнение таблиц
-## ```INSERT INTO Собаки (имя, команды, дата_рождения) VALUES ('Бобик', 'Сидеть', '2022-05-01');```
+```sql
+INSERT INTO Dog (name, commands, birth_date) VALUES ('Bobik', 'Sit', '2022-05-01');
+```
 # 10: Удаление верблюдов и объединение таблиц
-## ```DELETE FROM Верблюды;```
-## ```CREATE TABLE Лошади_Ослы AS 
-SELECT * FROM Лошади 
+```sql
+DELETE FROM Camel;
+```
+```sql
+CREATE TABLE Horse_Donkey AS 
+SELECT * FROM Horse 
 UNION 
-SELECT * FROM Ослы;```
+SELECT * FROM Donkey;
+```
 # 11: Создание таблицы "Молодые животные"
-## ```CREATE TABLE Молодые_животные AS
-SELECT *, TIMESTAMPDIFF(MONTH, дата_рождения, CURDATE()) AS возраст_в_месяцах
-FROM Собаки
-WHERE TIMESTAMPDIFF(YEAR, дата_рождения, CURDATE()) BETWEEN 1 AND 3;```
+```sql
+CREATE TABLE young_animals AS
+SELECT *, TIMESTAMPDIFF(MONTH, birth_date, CURDATE()) AS age_in_months
+FROM Dog
+WHERE TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 1 AND 3;
+
+```
 Повторить для других животных и объедините данные.
 
 # 12: Объединение всех таблиц
-## ```CREATE TABLE Все_животные AS
-SELECT 'Собаки' AS тип, * FROM Собаки
+```sql
+CREATE TABLE all_animals AS
+SELECT 'Dog' AS animal_type, * FROM Dog
 UNION ALL
-SELECT 'Кошки', * FROM Кошки
+SELECT 'Cat', * FROM Cat
 UNION ALL
-SELECT 'Хомяки', * FROM Хомяки
+SELECT 'Hamster', * FROM Hamster
 UNION ALL
-SELECT 'Лошади_Ослы', * FROM Лошади_Ослы;```
+SELECT 'Horse_Donkey', * FROM Horse_Donkey;
+```
+# 13: Инкапсуляция методов и наследование
+```python
+# Родительский класс Animal
+# Parent class Animal
+class Animal:
+    def __init__(self, name, birth_date):
+        self.__name = name  # Encapsulation of the name
+        self.__birth_date = birth_date  # Encapsulation of the birth date
+
+    # Method to get information about the animal
+    def get_info(self):
+        return f"Name: {self.__name}, Birth Date: {self.__birth_date}"
+
+    # Method to get the animal's age
+    def get_age(self, current_date):
+        # Age in years
+        return current_date.year - self.__birth_date.year - \
+            ((current_date.month, current_date.day) < (self.__birth_date.month, self.__birth_date.day))
+
+# Class DomesticAnimals, inheriting from Animal
+class DomesticAnimals(Animal):
+    def __init__(self, name, birth_date, commands):
+        super().__init__(name, birth_date)  # Inherited attributes
+        self.__commands = commands  # Encapsulation of the list of commands
+
+    # Method to get the commands that the domestic animal performs
+    def get_commands(self):
+        return f"Commands: {', '.join(self.__commands)}"
+
+# Class Dog, inheriting from DomesticAnimals
+class Dog(DomesticAnimals):
+    def __init__(self, name, birth_date, commands):
+        super().__init__(name, birth_date, commands)
+
+# Class Cat, inheriting from DomesticAnimals
+class Cat(DomesticAnimals):
+    def __init__(self, name, birth_date, commands):
+        super().__init__(name, birth_date, commands)
+
+# Class Hamster, inheriting from DomesticAnimals
+class Hamster(DomesticAnimals):
+    def __init__(self, name, birth_date, commands):
+        super().__init__(name, birth_date, commands)
+
+# Class PackAnimals, inheriting from Animal
+class PackAnimals(Animal):
+    def __init__(self, name, birth_date):
+        super().__init__(name, birth_date)
+
+# Class Horse, inheriting from PackAnimals
+class Horse(PackAnimals):
+    def __init__(self, name, birth_date):
+        super().__init__(name, birth_date)
+
+# Class Camel, inheriting from PackAnimals
+class Camel(PackAnimals):
+    def __init__(self, name, birth_date):
+        super().__init__(name, birth_date)
+
+# Class Donkey, inheriting from PackAnimals
+class Donkey(PackAnimals):
+    def __init__(self, name, birth_date):
+        super().__init__(name, birth_date)
+
+# Example of using the classes
+from datetime import date
+
+dog = Dog("Bobik", date(2021, 5, 1), ["Sit", "Lie down"])
+cat = Cat("Murka", date(2020, 8, 15), ["Meow"])
+
+print(dog.get_info())
+print(dog.get_commands())
+print(f"Dog age: {dog.get_age(date.today())} years")
+
+print(cat.get_info())
+print(cat.get_commands())
+print(f"Cat age: {cat.get_age(date.today())} years")
+```

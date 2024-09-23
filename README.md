@@ -69,3 +69,44 @@
 ## ```wget http://mirrors.kernel.org/ubuntu/pool/universe/h/htop/htop_3.0.5-3_amd64.deb```
 ## ```sudo dpkg -i htop_3.0.5-3_amd64.deb```
 ## ```sudo dpkg -r htop```
+# 5: История команд
+## ```history > история_команд.txt```
+# 6: Диаграмма классов
+![image](https://github.com/user-attachments/assets/dacdea2f-f8a8-4b23-ad24-8a8019e2f599)
+
+# 7: Создание базы данных
+## ```sudo mysql```
+## ```CREATE DATABASE Друзья_человека;```
+# 8: Создание таблиц
+## ```CREATE TABLE Собаки (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    имя VARCHAR(50),
+    команды VARCHAR(255),
+    дата_рождения DATE
+);```
+Повторить для всех классов (кошки, хомяки, лошади, верблюды, ослы).
+
+# 9: Заполнение таблиц
+## ```INSERT INTO Собаки (имя, команды, дата_рождения) VALUES ('Бобик', 'Сидеть', '2022-05-01');```
+# 10: Удаление верблюдов и объединение таблиц
+## ```DELETE FROM Верблюды;```
+## ```CREATE TABLE Лошади_Ослы AS 
+SELECT * FROM Лошади 
+UNION 
+SELECT * FROM Ослы;```
+# 11: Создание таблицы "Молодые животные"
+## ```CREATE TABLE Молодые_животные AS
+SELECT *, TIMESTAMPDIFF(MONTH, дата_рождения, CURDATE()) AS возраст_в_месяцах
+FROM Собаки
+WHERE TIMESTAMPDIFF(YEAR, дата_рождения, CURDATE()) BETWEEN 1 AND 3;```
+Повторить для других животных и объедините данные.
+
+# 12: Объединение всех таблиц
+## ```CREATE TABLE Все_животные AS
+SELECT 'Собаки' AS тип, * FROM Собаки
+UNION ALL
+SELECT 'Кошки', * FROM Кошки
+UNION ALL
+SELECT 'Хомяки', * FROM Хомяки
+UNION ALL
+SELECT 'Лошади_Ослы', * FROM Лошади_Ослы;```
